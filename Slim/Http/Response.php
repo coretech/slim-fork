@@ -158,7 +158,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->status;
     }
@@ -186,11 +186,11 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException For invalid status code arguments.
      */
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = ''): Response|static
     {
         $code = $this->filterStatus($code);
 
-        if (!is_string($reasonPhrase) && !method_exists($reasonPhrase, '__toString')) {
+        if (!is_string($reasonPhrase) && (!is_object($reasonPhrase) || !method_exists($reasonPhrase, '__toString'))) {
             throw new InvalidArgumentException('ReasonPhrase must be a string');
         }
 
@@ -218,7 +218,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException If an invalid HTTP status code is provided.
      */
-    protected function filterStatus($status)
+    protected function filterStatus($status): int
     {
         if (!is_integer($status) ||
             $status<StatusCode::HTTP_CONTINUE ||
@@ -244,7 +244,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return string Reason phrase; must return an empty string if none present.
      */
-    public function getReasonPhrase()
+    public function getReasonPhrase(): string
     {
         if ($this->reasonPhrase) {
             return $this->reasonPhrase;
@@ -268,7 +268,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException For invalid header names or values.
      */
-    public function withHeader($name, $value)
+    public function withHeader($name, $value): Response|static
     {
         $clone = clone $this;
         $clone->headers->set($name, $value);
@@ -295,7 +295,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return static
      */
-    public function write($data)
+    public function write($data): static
     {
         $this->getBody()->write($data);
 
@@ -315,7 +315,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return static
      */
-    public function withRedirect($url, $status = null)
+    public function withRedirect($url, $status = null): Response|static
     {
         $responseWithRedirect = $this->withHeader('Location', (string)$url);
 
@@ -346,7 +346,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws RuntimeException
      */
-    public function withJson($data, $status = null, $encodingOptions = 0)
+    public function withJson($data, $status = null, $encodingOptions = 0): static
     {
         $response = $this->withBody(new Body(fopen('php://temp', 'r+')));
         $response->body->write($json = json_encode($data, $encodingOptions));
@@ -370,7 +370,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return in_array(
             $this->getStatusCode(),
@@ -385,7 +385,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isInformational()
+    public function isInformational(): bool
     {
         return $this->getStatusCode() >= StatusCode::HTTP_CONTINUE && $this->getStatusCode() < StatusCode::HTTP_OK;
     }
@@ -397,7 +397,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isOk()
+    public function isOk(): bool
     {
         return $this->getStatusCode() === StatusCode::HTTP_OK;
     }
@@ -409,7 +409,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return $this->getStatusCode() >= StatusCode::HTTP_OK &&
             $this->getStatusCode() < StatusCode::HTTP_MULTIPLE_CHOICES;
@@ -422,7 +422,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isRedirect()
+    public function isRedirect(): bool
     {
         return in_array(
             $this->getStatusCode(),
@@ -443,7 +443,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isRedirection()
+    public function isRedirection(): bool
     {
         return $this->getStatusCode() >= StatusCode::HTTP_MULTIPLE_CHOICES &&
             $this->getStatusCode() < StatusCode::HTTP_BAD_REQUEST;
@@ -456,7 +456,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isForbidden()
+    public function isForbidden(): bool
     {
         return $this->getStatusCode() === StatusCode::HTTP_FORBIDDEN;
     }
@@ -468,7 +468,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isNotFound()
+    public function isNotFound(): bool
     {
         return $this->getStatusCode() === StatusCode::HTTP_NOT_FOUND;
     }
@@ -480,7 +480,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isBadRequest()
+    public function isBadRequest(): bool
     {
         return $this->getStatusCode() === StatusCode::HTTP_BAD_REQUEST;
     }
@@ -492,7 +492,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isClientError()
+    public function isClientError(): bool
     {
         return $this->getStatusCode() >= StatusCode::HTTP_BAD_REQUEST &&
             $this->getStatusCode() < StatusCode::HTTP_INTERNAL_SERVER_ERROR;
@@ -505,7 +505,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isServerError()
+    public function isServerError(): bool
     {
         return $this->getStatusCode() >= StatusCode::HTTP_INTERNAL_SERVER_ERROR && $this->getStatusCode() < 600;
     }

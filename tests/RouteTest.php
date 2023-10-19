@@ -8,7 +8,6 @@
 namespace Slim\Tests;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
 use Slim\Container;
 use Slim\DeferredCallable;
 use Slim\Http\Body;
@@ -22,7 +21,7 @@ use Slim\Tests\Mocks\CallableTest;
 use Slim\Tests\Mocks\InvocationStrategyTest;
 use Slim\Tests\Mocks\MiddlewareStub;
 
-class RouteTest extends PHPUnit_Framework_TestCase
+class RouteTest extends MigratingTestCase
 {
     public function routeFactory()
     {
@@ -176,7 +175,7 @@ class RouteTest extends PHPUnit_Framework_TestCase
     {
         $route = $this->routeFactory();
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $route->setName(false);
     }
@@ -201,7 +200,7 @@ class RouteTest extends PHPUnit_Framework_TestCase
     {
         $route = $this->routeFactory();
 
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $route->setOutputBuffering('invalid');
     }
@@ -298,11 +297,9 @@ class RouteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo', (string)$response->getBody());
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testInvokeWithException()
     {
+        $this->expectException(Exception::class);
         $callable = function ($req, $res, $args) {
             throw new Exception();
         };

@@ -661,9 +661,10 @@ class App
      *
      * @return bool
      */
-    protected function isHeadRequest(RequestInterface $request)
+    protected function isHeadRequest(RequestInterface $request): bool
     {
-        return strtoupper($request->getMethod()) === 'HEAD';
+        $method = $request->getMethod();
+        return strtoupper(isset($method) ? $method : '') === 'HEAD';
     }
 
     /**

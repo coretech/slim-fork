@@ -7,13 +7,13 @@
 
 namespace Slim\Tests\Handlers;
 
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Slim\Handlers\NotAllowed;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Tests\MigratingTestCase;
 
-class NotAllowedTest extends PHPUnit_Framework_TestCase
+class NotAllowedTest extends MigratingTestCase
 {
     public function invalidMethodProvider()
     {
@@ -64,14 +64,14 @@ class NotAllowedTest extends PHPUnit_Framework_TestCase
         $errorMock->method('determineContentType')
             ->will($this->returnValue('unknown/type'));
 
-        $this->setExpectedException('\UnexpectedValueException');
+        $this->expectException('\UnexpectedValueException');
         $errorMock->__invoke($this->getRequest('GET', 'unknown/type'), new Response(), ['POST']);
     }
 
     /**
      * @param string $method
      *
-     * @return PHPUnit_Framework_MockObject_MockObject|Request
+     * @return MockObject|Request
      */
     protected function getRequest($method, $contentType = 'text/html')
     {

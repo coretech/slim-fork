@@ -7,11 +7,11 @@
 
 namespace Slim\Tests\Http;
 
-use PHPUnit_Framework_TestCase;
 use RuntimeException;
 use Slim\Http\Stream;
+use Slim\Tests\MigratingTestCase;
 
-class StreamTest extends PHPUnit_Framework_TestCase
+class StreamTest extends MigratingTestCase
 {
     /**
      * @var resource pipe stream file handle
@@ -23,7 +23,7 @@ class StreamTest extends PHPUnit_Framework_TestCase
      */
     private $pipeStream;
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if ($this->pipeFh != null) {
             stream_get_contents($this->pipeFh); // prevent broken pipe error message
@@ -58,31 +58,25 @@ class StreamTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->pipeStream->isSeekable());
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCannotSeekPipe()
     {
+        $this->expectException(RuntimeException::class);
         $this->openPipeStream();
 
         $this->pipeStream->seek(0);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCannotTellPipe()
     {
+        $this->expectException(RuntimeException::class);
         $this->openPipeStream();
 
         $this->pipeStream->tell();
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testCannotRewindPipe()
     {
+        $this->expectException(RuntimeException::class);
         $this->openPipeStream();
 
         $this->pipeStream->rewind();

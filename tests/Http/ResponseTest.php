@@ -8,14 +8,14 @@
 namespace Slim\Tests\Http;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
 use ReflectionProperty;
 use RuntimeException;
 use Slim\Http\Body;
 use Slim\Http\Headers;
 use Slim\Http\Response;
+use Slim\Tests\MigratingTestCase;
 
-class ResponseTest extends PHPUnit_Framework_TestCase
+class ResponseTest extends MigratingTestCase
 {
     public function testConstructorWithDefaultArgs()
     {
@@ -76,21 +76,17 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(302, 'status', $clone);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testWithStatusInvalidStatusCodeThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $response = new Response();
         $response->withStatus(800);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage ReasonPhrase must be a string
-     */
     public function testWithStatusInvalidReasonPhraseThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("ReasonPhrase must be a string");
         $response = new Response();
         $response->withStatus(200, null);
     }
@@ -109,12 +105,10 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Not Found', $response->getReasonPhrase());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage ReasonPhrase must be supplied for this code
-     */
     public function testMustSetReasonPhraseForUnrecognisedCode()
     {
+        $this->expectExceptionMessage("ReasonPhrase must be supplied for this code");
+        $this->expectException(InvalidArgumentException::class);
         $response = new Response();
         $response = $response->withStatus(199);
     }
@@ -319,11 +313,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($response->getStatusCode(), 201);
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testWithInvalidJsonThrowsException()
     {
+        $this->expectException(RuntimeException::class);
         $data = ['foo' => 'bar'.chr(233)];
         $this->assertEquals('bar'.chr(233), $data['foo']);
 

@@ -8,11 +8,11 @@
 namespace Slim\Tests\Http;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
 use ReflectionProperty;
 use Slim\Http\Body;
+use Slim\Tests\MigratingTestCase;
 
-class BodyTest extends PHPUnit_Framework_TestCase
+class BodyTest extends MigratingTestCase
 {
     /**
      * @var string
@@ -25,7 +25,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
      */
     protected $stream;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if (is_resource($this->stream) === true) {
             fclose($this->stream);
@@ -60,11 +60,9 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $this->assertSame($this->stream, $bodyStream->getValue($body));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testConstructorInvalidStream()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->stream = 'foo';
         $body = new Body($this->stream);
     }
@@ -198,7 +196,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $bodyStream->setAccessible(true);
         $bodyStream->setValue($body, null);
 
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $body->tell();
     }
 
@@ -319,7 +317,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $body = new Body($this->stream);
         $body->detach();
 
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $body->seek(10);
     }
 
@@ -339,7 +337,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $body = new Body($this->stream);
         $body->detach();
 
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $body->rewind();
     }
 
@@ -357,7 +355,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $body = new Body($this->stream);
         $body->detach();
 
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $body->read(10);
     }
 
@@ -379,7 +377,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $body = new Body($this->stream);
         $body->detach();
 
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $body->write('foo');
     }
 
@@ -398,7 +396,7 @@ class BodyTest extends PHPUnit_Framework_TestCase
         $body = new Body($this->stream);
         $body->detach();
 
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         $body->getContents();
     }
 }

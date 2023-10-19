@@ -8,15 +8,15 @@
 namespace Slim\Tests\Handlers;
 
 use Exception;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Slim\Handlers\PhpError;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Tests\MigratingTestCase;
 use Throwable;
 use UnexpectedValueException;
 
-class PhpErrorTest extends PHPUnit_Framework_TestCase
+class PhpErrorTest extends MigratingTestCase
 {
     public function phpErrorProvider()
     {
@@ -79,14 +79,13 @@ class PhpErrorTest extends PHPUnit_Framework_TestCase
 
         $req = $this->getMockBuilder('Slim\Http\Request')->disableOriginalConstructor()->getMock();
 
-        $this->setExpectedException('\UnexpectedValueException');
+        $this->expectException('\UnexpectedValueException');
         $errorMock->__invoke($req, new Response(), new Exception());
     }
 
     /**
      * Test invalid method returns the correct code and content type
      *
-     * @requires PHP 5.0
      * @dataProvider phpErrorProvider
      */
     public function testPhpError5($acceptHeader, $contentType, $startOfBody)
@@ -140,12 +139,9 @@ class PhpErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, strpos((string)$res->getBody(), $startOfBody));
     }
 
-    /**
-     * @requires PHP 5.0
-     * @expectedException UnexpectedValueException
-     */
     public function testNotFoundContentType5()
     {
+        $this->expectException(UnexpectedValueException::class);
         $this->skipIfPhp70();
         $errorMock = $this->getMock(PhpError::class, ['determineContentType']);
         $errorMock->method('determineContentType')
@@ -160,7 +156,7 @@ class PhpErrorTest extends PHPUnit_Framework_TestCase
     /**
      * @param string $method
      *
-     * @return PHPUnit_Framework_MockObject_MockObject|Request
+     * @return MockObject|Request
      */
     protected function getRequest($method, $acceptHeader)
     {

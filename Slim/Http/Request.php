@@ -475,6 +475,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getRequestTarget()
     {
         if ($this->requestTarget) {
@@ -491,7 +492,7 @@ class Request extends Message implements ServerRequestInterface
             $basePath = '';
         }
         $path = $this->uri->getPath();
-        $path = $basePath . '/' . ltrim($path, '/');
+        $path = $basePath . '/' . ltrim($path ?: '', '/');
 
         $query = $this->uri->getQuery();
         if ($query) {
@@ -523,6 +524,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @throws InvalidArgumentException if the request target is invalid
      */
+    #[\ReturnTypeWillChange]
     public function withRequestTarget($requestTarget)
     {
         if (preg_match('#\s#', $requestTarget)) {
@@ -545,6 +547,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return UriInterface
      */
+    #[\ReturnTypeWillChange]
     public function getUri()
     {
         return $this->uri;
@@ -582,6 +585,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
         $clone = clone $this;
@@ -607,6 +611,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function getContentType()
     {
         $result = $this->getHeader('Content-Type');
@@ -621,6 +626,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function getMediaType()
     {
         $contentType = $this->getContentType();
@@ -640,6 +646,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function getMediaTypeParams()
     {
         $contentType = $this->getContentType();
@@ -663,6 +670,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function getContentCharset()
     {
         $mediaTypeParams = $this->getMediaTypeParams();
@@ -680,6 +688,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return int|null
      */
+    #[\ReturnTypeWillChange]
     public function getContentLength()
     {
         $result = $this->headers->get('Content-Length');
@@ -696,6 +705,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getCookieParams()
     {
         return $this->cookies;
@@ -711,6 +721,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function getCookieParam($key, $default = null)
     {
         $cookies = $this->getCookieParams();
@@ -740,6 +751,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withCookieParams(array $cookies)
     {
         $clone = clone $this;
@@ -760,6 +772,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getQueryParams()
     {
         if (is_array($this->queryParams)) {
@@ -798,6 +811,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withQueryParams(array $query)
     {
         $clone = clone $this;
@@ -817,6 +831,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getUploadedFiles()
     {
         return $this->uploadedFiles;
@@ -835,6 +850,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @throws InvalidArgumentException if an invalid structure is provided.
      */
+    #[\ReturnTypeWillChange]
     public function withUploadedFiles(array $uploadedFiles)
     {
         $clone = clone $this;
@@ -852,6 +868,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getServerParams()
     {
         return $this->serverParams;
@@ -867,6 +884,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function getServerParam($key, $default = null)
     {
         $serverParams = $this->getServerParams();
@@ -885,6 +903,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getAttributes()
     {
         return $this->attributes->all();
@@ -907,6 +926,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function getAttribute($name, $default = null)
     {
         return $this->attributes->get($name, $default);
@@ -929,6 +949,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withAttribute($name, $value)
     {
         $clone = clone $this;
@@ -953,6 +974,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withAttributes(array $attributes)
     {
         $clone = clone $this;
@@ -977,6 +999,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withoutAttribute($name)
     {
         $clone = clone $this;
@@ -1001,6 +1024,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @throws RuntimeException if the request body media type parser returns an invalid value
      */
+    #[\ReturnTypeWillChange]
     public function getParsedBody()
     {
         if ($this->bodyParsed !== false) {
@@ -1016,7 +1040,7 @@ class Request extends Message implements ServerRequestInterface
         // Check if this specific media type has a parser registered first
         if (!isset($this->bodyParsers[$mediaType])) {
             // If not, look for a media type with a structured syntax suffix (RFC 6839)
-            $parts = explode('+', $mediaType);
+            $parts = explode('+', $mediaType ?: '');
             if (count($parts) >= 2) {
                 $mediaType = 'application/' . $parts[count($parts)-1];
             }
@@ -1067,7 +1091,7 @@ class Request extends Message implements ServerRequestInterface
      * @throws InvalidArgumentException if an unsupported argument type is
      *     provided.
      */
-    public function withParsedBody($data)
+    public function withParsedBody($data): Request|static
     {
         if (!is_null($data) && !is_object($data) && !is_array($data)) {
             throw new InvalidArgumentException('Parsed body value must be an array, an object, or null');
@@ -1086,7 +1110,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return $this
      */
-    public function reparseBody()
+    public function reparseBody(): self
     {
         $this->bodyParsed = false;
 
@@ -1101,7 +1125,7 @@ class Request extends Message implements ServerRequestInterface
      * @param string   $mediaType A HTTP media type (excluding content-type params).
      * @param callable $callable  A callable that returns parsed contents for media type.
      */
-    public function registerMediaTypeParser($mediaType, callable $callable)
+    public function registerMediaTypeParser($mediaType, callable $callable): void
     {
         if ($callable instanceof Closure) {
             $callable = $callable->bindTo($this);
@@ -1119,7 +1143,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed
      */
-    public function getParam($key, $default = null)
+    public function getParam($key, $default = null): mixed
     {
         $postParams = $this->getParsedBody();
         $getParams = $this->getQueryParams();
@@ -1145,7 +1169,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed
      */
-    public function getParsedBodyParam($key, $default = null)
+    public function getParsedBodyParam($key, $default = null): mixed
     {
         $postParams = $this->getParsedBody();
         $result = $default;
@@ -1168,7 +1192,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed
      */
-    public function getQueryParam($key, $default = null)
+    public function getQueryParam($key, $default = null): mixed
     {
         $getParams = $this->getQueryParams();
         $result = $default;
@@ -1188,7 +1212,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return mixed[]
      */
-    public function getParams(array $only = null)
+    public function getParams(array $only = null): array
     {
         $params = $this->getQueryParams();
         $postParams = $this->getParsedBody();
@@ -1208,8 +1232,8 @@ class Request extends Message implements ServerRequestInterface
 
         return $params;
     }
-    
-    private static function disableXmlEntityLoader($disable)
+
+    private static function disableXmlEntityLoader($disable): bool
     {
         if (\LIBXML_VERSION >= 20900) {
             // libxml >= 2.9.0 disables entity loading by default, so it is

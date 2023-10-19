@@ -7,12 +7,12 @@
 
 namespace Slim\Tests\Http;
 
-use PHPUnit_Framework_TestCase;
 use ReflectionProperty;
 use Slim\Http\Environment;
 use Slim\Http\Headers;
+use Slim\Tests\MigratingTestCase;
 
-class HeadersTest extends PHPUnit_Framework_TestCase
+class HeadersTest extends MigratingTestCase
 {
     public function testCreateFromEnvironment()
     {

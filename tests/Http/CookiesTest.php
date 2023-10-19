@@ -8,13 +8,13 @@
 namespace Slim\Tests\Http;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 use ReflectionProperty;
 use Slim\Http\Cookies;
+use Slim\Tests\MigratingTestCase;
 use stdClass;
 
-class CookiesTest extends PHPUnit_Framework_TestCase
+class CookiesTest extends MigratingTestCase
 {
     public function testConstructor()
     {
@@ -269,7 +269,7 @@ class CookiesTest extends PHPUnit_Framework_TestCase
 
     public function testParseHeaderException()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Cookies::parseHeader(new stdClass);
     }
 }

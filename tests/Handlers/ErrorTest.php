@@ -8,16 +8,16 @@
 namespace Slim\Tests\Handlers;
 
 use Exception;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 use RuntimeException;
 use Slim\Handlers\Error;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Tests\MigratingTestCase;
 use UnexpectedValueException;
 
-class ErrorTest extends PHPUnit_Framework_TestCase
+class ErrorTest extends MigratingTestCase
 {
     public function errorProvider()
     {
@@ -67,11 +67,9 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, strpos((string)$res->getBody(), $startOfBody));
     }
 
-    /**
-     * @expectedException UnexpectedValueException
-     */
     public function testNotFoundContentType()
     {
+        $this->expectException(UnexpectedValueException::class);
         $errorMock = $this->getMockBuilder(Error::class)->setMethods(['determineContentType'])->getMock();
         $errorMock->method('determineContentType')
             ->will($this->returnValue('unknown/type'));
@@ -113,7 +111,7 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $renderHtmlExceptionorError = $class->getMethod('renderHtmlExceptionOrError');
         $renderHtmlExceptionorError->setAccessible(true);
 
-        $this->setExpectedException(RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $error = new Error();
         $renderHtmlExceptionorError->invokeArgs($error, ['foo']);
@@ -122,7 +120,7 @@ class ErrorTest extends PHPUnit_Framework_TestCase
     /**
      * @param string $method
      *
-     * @return PHPUnit_Framework_MockObject_MockObject|Request
+     * @return MockObject|Request
      */
     protected function getRequest($method, $acceptHeader)
     {

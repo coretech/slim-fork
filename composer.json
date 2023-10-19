@@ -1,7 +1,7 @@
 {
-    "name": "slim/slim",
+    "name": "coretech/slim-fork",
     "type": "library",
-    "description": "Slim is a PHP micro framework that helps you quickly write simple yet powerful web applications and APIs",
+    "description": "Slim3 for PHP8",
     "keywords": ["framework","micro","api","router"],
     "homepage": "https://slimframework.com",
     "license": "MIT",
@@ -28,7 +28,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=8.0",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
@@ -39,7 +39,8 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6.0",
-        "phpunit/phpunit": "^4.0"
+        "phpunit/phpunit": "^9",
+        "phpspec/prophecy-phpunit": "^2.0"
     },
     "provide": {
         "psr/http-message-implementation": "1.0"

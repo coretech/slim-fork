@@ -8,8 +8,8 @@
 namespace Slim\Tests\Http;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\MethodProphecy;
 use Psr\Http\Message\UriInterface;
 use ReflectionProperty;
@@ -21,9 +21,12 @@ use Slim\Http\Request;
 use Slim\Http\RequestBody;
 use Slim\Http\UploadedFile;
 use Slim\Http\Uri;
+use Slim\Tests\MigratingTestCase;
 
-class RequestTest extends PHPUnit_Framework_TestCase
+class RequestTest extends MigratingTestCase
 {
+    use ProphecyTrait;
+
     public function requestFactory($envData = [])
     {
         $env = Environment::mock($envData);
@@ -153,11 +156,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals("!#$%&'*+.^_`|~09AZ-", 'originalMethod', $request);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testWithMethodInvalid()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->requestFactory()->withMethod('B@R');
     }
 
@@ -288,11 +289,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('PUT', $request->getMethod());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testCreateRequestWithInvalidMethodString()
     {
+        $this->expectException(InvalidArgumentException::class);
         $uri = Uri::createFromString('https://example.com:443/foo/bar?abc=123');
         $headers = new Headers();
         $cookies = [];
@@ -301,11 +300,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $request = new Request('B@R', $uri, $headers, $cookies, $serverParams, $body);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testCreateRequestWithInvalidMethodOther()
     {
+        $this->expectException(InvalidArgumentException::class);
         $uri = Uri::createFromString('https://example.com:443/foo/bar?abc=123');
         $headers = new Headers();
         $cookies = [];
@@ -466,11 +463,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('/test?user=1', 'requestTarget', $clone);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testWithRequestTargetThatHasSpaces()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->requestFactory()->withRequestTarget('/test/m ore/stuff?user=1');
     }
 
@@ -1065,11 +1060,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['abc' => '123'], $request->getParsedBody());
     }
 
-    /**
-     * @expectedException RuntimeException
-     */
     public function testGetParsedBodyAsArray()
     {
+        $this->expectException(RuntimeException::class);
         $uri = Uri::createFromString('https://example.com:443/foo/bar?abc=123');
         $headers = new Headers([
             'Content-Type' => 'application/json;charset=utf8',
@@ -1147,19 +1140,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertNull($request->getParsedBody());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testWithParsedBodyInvalid()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->requestFactory()->withParsedBody(2);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testWithParsedBodyInvalidFalseValue()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->requestFactory()->withParsedBody(false);
     }
 

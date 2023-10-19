@@ -7,7 +7,6 @@
 
 namespace Slim\Tests\Http;
 
-use PHPUnit_Framework_TestCase;
 use RuntimeException;
 use Slim\Http\Environment;
 use Slim\Http\Headers;
@@ -16,21 +15,22 @@ use Slim\Http\RequestBody;
 use Slim\Http\Stream;
 use Slim\Http\UploadedFile;
 use Slim\Http\Uri;
+use Slim\Tests\MigratingTestCase;
 
-class UploadedFilesTest extends PHPUnit_Framework_TestCase
+class UploadedFilesTest extends MigratingTestCase
 {
-    static private $filename = './phpUxcOty';
+    private static $filename = './phpUxcOty';
 
-    static private $tmpFiles = ['./phpUxcOty'];
+    private static $tmpFiles = ['./phpUxcOty'];
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $fh = fopen(self::$filename, "w");
         fwrite($fh, "12345678");
         fclose($fh);
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         foreach (self::$tmpFiles as $filename) {
             if (file_exists($filename)) {
@@ -147,7 +147,7 @@ class UploadedFilesTest extends PHPUnit_Framework_TestCase
     {
         $tempName = uniqid('file-');
         $path = 'some_random_dir' . DIRECTORY_SEPARATOR . $tempName;
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $uploadedFile->moveTo($path);
     }
 
@@ -176,10 +176,11 @@ class UploadedFilesTest extends PHPUnit_Framework_TestCase
      *
      * @param UploadedFile $uploadedFile
      *
-     * @expectedException RuntimeException
+     *
      */
     public function testMoveToCannotBeDoneTwice(UploadedFile $uploadedFile)
     {
+        $this->expectException(RuntimeException::class);
         $tempName = uniqid('file-');
         $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $tempName;
         $uploadedFile->moveTo($path);
@@ -198,7 +199,7 @@ class UploadedFilesTest extends PHPUnit_Framework_TestCase
      */
     public function testMoveToAgain(UploadedFile $uploadedFile)
     {
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
 
         $tempName = uniqid('file-');
         $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $tempName;
@@ -214,7 +215,7 @@ class UploadedFilesTest extends PHPUnit_Framework_TestCase
      */
     public function testMovedStream($uploadedFile)
     {
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
 
         $uploadedFile->getStream();
     }
@@ -229,7 +230,7 @@ class UploadedFilesTest extends PHPUnit_Framework_TestCase
         $movedFileContents = ob_get_clean();
 
         $this->assertEquals($contents, $movedFileContents);
-        $this->assertFileNotExists($uploadedFile->file);
+        $this->assertFileDoesNotExist($uploadedFile->file);
     }
 
     public function providerCreateFromEnvironment()
