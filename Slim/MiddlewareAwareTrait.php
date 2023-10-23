@@ -50,6 +50,7 @@ trait MiddlewareAwareTrait
      * @throws RuntimeException         If middleware is added while the stack is dequeuing
      * @throws UnexpectedValueException If the middleware doesn't return a Psr\Http\Message\ResponseInterface
      */
+    #[\ReturnTypeWillChange]
     protected function addMiddleware(callable $callable)
     {
         if ($this->middlewareLock) {
@@ -87,6 +88,7 @@ trait MiddlewareAwareTrait
      *
      * @throws RuntimeException if the stack is seeded more than once
      */
+    #[\ReturnTypeWillChange]
     protected function seedMiddlewareStack(callable $kernel = null)
     {
         if (!is_null($this->tip)) {
@@ -106,6 +108,7 @@ trait MiddlewareAwareTrait
      *
      * @return ResponseInterface
      */
+    #[\ReturnTypeWillChange]
     public function callMiddlewareStack(ServerRequestInterface $request, ResponseInterface $response)
     {
         if (is_null($this->tip)) {

@@ -29,6 +29,7 @@ class DefaultServicesProvider
      *
      * @param Container $container A DI container implementing ArrayAccess and psr/container.
      */
+    #[\ReturnTypeWillChange]
     public function register($container)
     {
         if (!isset($container['environment'])) {

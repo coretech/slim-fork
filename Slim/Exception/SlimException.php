@@ -37,6 +37,7 @@ class SlimException extends Exception
     /**
      * @return ServerRequestInterface
      */
+    #[\ReturnTypeWillChange]
     public function getRequest()
     {
         return $this->request;
@@ -45,6 +46,7 @@ class SlimException extends Exception
     /**
      * @return ResponseInterface
      */
+    #[\ReturnTypeWillChange]
     public function getResponse()
     {
         return $this->response;

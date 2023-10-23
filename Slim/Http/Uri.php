@@ -132,6 +132,7 @@ class Uri implements UriInterface
      *
      * @return self
      */
+    #[\ReturnTypeWillChange]
     public static function createFromString($uri)
     {
         if (!is_string($uri) && (!is_object($uri) || !method_exists($uri, '__toString'))) {
@@ -158,6 +159,7 @@ class Uri implements UriInterface
      *
      * @return self
      */
+    #[\ReturnTypeWillChange]
     public static function createFromEnvironment(Environment $env)
     {
         // Scheme
@@ -246,6 +248,7 @@ class Uri implements UriInterface
      *
      * @return string The URI scheme.
      */
+    #[\ReturnTypeWillChange]
     public function getScheme()
     {
         return $this->scheme;
@@ -268,6 +271,7 @@ class Uri implements UriInterface
      *
      * @throws InvalidArgumentException for invalid or unsupported schemes.
      */
+    #[\ReturnTypeWillChange]
     public function withScheme($scheme)
     {
         $scheme = $this->filterScheme($scheme);
@@ -286,6 +290,7 @@ class Uri implements UriInterface
      * @throws InvalidArgumentException If the Uri scheme is not a string.
      * @throws InvalidArgumentException If Uri scheme is not "", "https", or "http".
      */
+    #[\ReturnTypeWillChange]
     protected function filterScheme($scheme)
     {
         static $valid = [
@@ -325,6 +330,7 @@ class Uri implements UriInterface
      *
      * @return string The URI authority, in "[user-info@]host[:port]" format.
      */
+    #[\ReturnTypeWillChange]
     public function getAuthority()
     {
         $userInfo = $this->getUserInfo();
@@ -349,6 +355,7 @@ class Uri implements UriInterface
      *
      * @return string The URI user information, in "username[:password]" format.
      */
+    #[\ReturnTypeWillChange]
     public function getUserInfo()
     {
         return (isset($this->user) ? $this->user : '') . ($this->password !== '' ? ':' . $this->password : '');
@@ -369,6 +376,7 @@ class Uri implements UriInterface
      *
      * @return self A new instance with the specified user information.
      */
+    #[\ReturnTypeWillChange]
     public function withUserInfo($user, $password = null)
     {
         $clone = clone $this;
@@ -389,6 +397,7 @@ class Uri implements UriInterface
      *
      * @return string The percent-encoded query string.
      */
+    #[\ReturnTypeWillChange]
     protected function filterUserInfo($query)
     {
         return preg_replace_callback(
@@ -412,6 +421,7 @@ class Uri implements UriInterface
      *
      * @return string The URI host.
      */
+    #[\ReturnTypeWillChange]
     public function getHost()
     {
         return isset($this->host) ? $this->host : '';
@@ -429,6 +439,7 @@ class Uri implements UriInterface
      *
      * @return self A new instance with the specified host.
      */
+    #[\ReturnTypeWillChange]
     public function withHost($host)
     {
         $clone = clone $this;
@@ -452,6 +463,7 @@ class Uri implements UriInterface
      *
      * @return null|int The URI port.
      */
+    #[\ReturnTypeWillChange]
     public function getPort()
     {
         return $this->port && !$this->hasStandardPort() ? $this->port : null;
@@ -474,6 +486,7 @@ class Uri implements UriInterface
      *
      * @return self A new instance with the specified port.
      */
+    #[\ReturnTypeWillChange]
     public function withPort($port)
     {
         $port = $this->filterPort($port);
@@ -488,6 +501,7 @@ class Uri implements UriInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     protected function hasStandardPort()
     {
         return ($this->scheme === 'http' && $this->port === 80) || ($this->scheme === 'https' && $this->port === 443);
@@ -501,6 +515,7 @@ class Uri implements UriInterface
      *
      * @throws InvalidArgumentException If the port is invalid.
      */
+    #[\ReturnTypeWillChange]
     protected function filterPort($port)
     {
         if (is_null($port) || (is_integer($port) && ($port >= 1 && $port <= 65535))) {
@@ -536,6 +551,7 @@ class Uri implements UriInterface
      *
      * @return string The URI path.
      */
+    #[\ReturnTypeWillChange]
     public function getPath()
     {
         return $this->path;
@@ -564,6 +580,7 @@ class Uri implements UriInterface
      *
      * @throws InvalidArgumentException For invalid paths.
      */
+    #[\ReturnTypeWillChange]
     public function withPath($path)
     {
         if (!is_string($path)) {
@@ -591,6 +608,7 @@ class Uri implements UriInterface
      *
      * @return string The base path segment of the URI.
      */
+    #[\ReturnTypeWillChange]
     public function getBasePath()
     {
         return $this->basePath;
@@ -605,6 +623,7 @@ class Uri implements UriInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withBasePath($basePath)
     {
         if (!is_string($basePath)) {
@@ -638,6 +657,7 @@ class Uri implements UriInterface
      *
      * @link   http://www.faqs.org/rfcs/rfc3986.html
      */
+    #[\ReturnTypeWillChange]
     protected function filterPath($path)
     {
         return preg_replace_callback(
@@ -670,6 +690,7 @@ class Uri implements UriInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getQuery()
     {
         return $this->query;
@@ -692,6 +713,7 @@ class Uri implements UriInterface
      *
      * @throws InvalidArgumentException For invalid query strings.
      */
+    #[\ReturnTypeWillChange]
     public function withQuery($query)
     {
         if (!is_string($query) && (!is_object($query) || !method_exists($query, '__toString'))) {
@@ -711,6 +733,7 @@ class Uri implements UriInterface
      *
      * @return string The percent-encoded query string.
      */
+    #[\ReturnTypeWillChange]
     protected function filterQuery($query)
     {
         return preg_replace_callback(
@@ -739,6 +762,7 @@ class Uri implements UriInterface
      *
      * @return string The URI fragment.
      */
+    #[\ReturnTypeWillChange]
     public function getFragment()
     {
         return $this->fragment;
@@ -759,6 +783,7 @@ class Uri implements UriInterface
      *
      * @return static A new instance with the specified fragment.
      */
+    #[\ReturnTypeWillChange]
     public function withFragment($fragment)
     {
         if (!is_string($fragment) && (!is_object($fragment) || !method_exists($fragment, '__toString'))) {
@@ -822,6 +847,7 @@ class Uri implements UriInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getBaseUrl()
     {
         $scheme = $this->getScheme();

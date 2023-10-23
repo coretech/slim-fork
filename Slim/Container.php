@@ -70,6 +70,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     private function registerDefaultServices($userSettings)
     {
         $defaultSettings = $this->defaultSettings;
@@ -100,6 +101,7 @@ class Container extends PimpleContainer implements ContainerInterface
      * @throws ContainerValueNotFoundException  No entry was found for this identifier.
      * @throws ContainerExceptionInterface      Error while retrieving the entry.
      */
+    #[\ReturnTypeWillChange]
     public function get($id)
     {
         if (!$this->offsetExists($id)) {
@@ -128,6 +130,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     private function exceptionThrownByContainer(InvalidArgumentException $exception)
     {
         $trace = $exception->getTrace()[0];
@@ -143,6 +146,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function has($id)
     {
         return $this->offsetExists($id);

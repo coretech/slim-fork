@@ -32,6 +32,7 @@ abstract class AbstractError extends AbstractHandler
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     protected function writeToErrorLog($throwable)
     {
         if ($this->displayErrorDetails) {
@@ -57,6 +58,7 @@ abstract class AbstractError extends AbstractHandler
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderThrowableAsText($throwable)
     {
         $text = sprintf('Type: %s' . PHP_EOL, get_class($throwable));
@@ -89,6 +91,7 @@ abstract class AbstractError extends AbstractHandler
      *
      * @param string $message
      */
+    #[\ReturnTypeWillChange]
     protected function logError($message)
     {
         error_log($message);

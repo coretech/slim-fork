@@ -29,6 +29,7 @@ trait CallableResolverAwareTrait
      *
      * @throws RuntimeException If the string cannot be resolved as a callable
      */
+    #[\ReturnTypeWillChange]
     protected function resolveCallable($callable)
     {
         if (!$this->container instanceof ContainerInterface) {

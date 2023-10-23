@@ -21,6 +21,7 @@ interface RouteInterface
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function getArgument($name, $default = null);
 
     /**
@@ -28,6 +29,7 @@ interface RouteInterface
      *
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function getArguments();
 
     /**
@@ -35,6 +37,7 @@ interface RouteInterface
      *
      * @return null|string
      */
+    #[\ReturnTypeWillChange]
     public function getName();
 
     /**
@@ -42,6 +45,7 @@ interface RouteInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getPattern();
 
     /**
@@ -52,6 +56,7 @@ interface RouteInterface
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function setArgument($name, $value);
 
     /**
@@ -61,6 +66,7 @@ interface RouteInterface
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function setArguments(array $arguments);
 
     /**
@@ -72,6 +78,7 @@ interface RouteInterface
      *
      * @throws InvalidArgumentException If an unknown buffering mode is specified
      */
+    #[\ReturnTypeWillChange]
     public function setOutputBuffering($mode);
 
     /**
@@ -83,6 +90,7 @@ interface RouteInterface
      *
      * @throws InvalidArgumentException if the route name is not a string
      */
+    #[\ReturnTypeWillChange]
     public function setName($name);
 
     /**
@@ -94,6 +102,7 @@ interface RouteInterface
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function add($callable);
 
     /**
@@ -102,6 +111,7 @@ interface RouteInterface
      * @param ServerRequestInterface $request
      * @param array                  $arguments
      */
+    #[\ReturnTypeWillChange]
     public function prepare(ServerRequestInterface $request, array $arguments);
 
     /**
@@ -116,6 +126,7 @@ interface RouteInterface
      *
      * @return ResponseInterface
      */
+    #[\ReturnTypeWillChange]
     public function run(ServerRequestInterface $request, ResponseInterface $response);
 
     /**
@@ -130,5 +141,6 @@ interface RouteInterface
      *
      * @return ResponseInterface
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response);
 }

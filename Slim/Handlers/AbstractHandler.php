@@ -34,6 +34,7 @@ abstract class AbstractHandler
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function determineContentType(ServerRequestInterface $request)
     {
         $acceptHeader = $request->getHeaderLine('Accept');

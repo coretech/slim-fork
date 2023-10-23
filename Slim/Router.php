@@ -96,6 +96,7 @@ class Router implements RouterInterface
      * @return static
      * @throws InvalidArgumentException
      */
+    #[\ReturnTypeWillChange]
     public function setBasePath($basePath)
     {
         if (!is_string($basePath)) {
@@ -112,6 +113,7 @@ class Router implements RouterInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getBasePath()
     {
         return $this->basePath;
@@ -127,6 +129,7 @@ class Router implements RouterInterface
      * @throws InvalidArgumentException If cacheFile is not a string or not false
      * @throws RuntimeException         If cacheFile directory is not writable
      */
+    #[\ReturnTypeWillChange]
     public function setCacheFile($cacheFile)
     {
         if (!is_string($cacheFile) && $cacheFile !== false) {
@@ -152,6 +155,7 @@ class Router implements RouterInterface
     /**
      * @param ContainerInterface $container
      */
+    #[\ReturnTypeWillChange]
     public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
@@ -160,6 +164,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function map($methods, $pattern, $handler)
     {
         if (!is_string($pattern)) {
@@ -186,6 +191,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function dispatch(ServerRequestInterface $request)
     {
         $uri = '/' . ltrim($request->getUri()->getPath(), '/');
@@ -205,6 +211,7 @@ class Router implements RouterInterface
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     protected function createRoute($methods, $pattern, $callable)
     {
         $route = new Route($methods, $pattern, $callable, $this->routeGroups, $this->routeCounter);
@@ -218,6 +225,7 @@ class Router implements RouterInterface
     /**
      * @return Dispatcher
      */
+    #[\ReturnTypeWillChange]
     protected function createDispatcher()
     {
         if ($this->dispatcher) {
@@ -247,6 +255,7 @@ class Router implements RouterInterface
     /**
      * @param Dispatcher $dispatcher
      */
+    #[\ReturnTypeWillChange]
     public function setDispatcher(Dispatcher $dispatcher)
     {
         $this->dispatcher = $dispatcher;
@@ -257,6 +266,7 @@ class Router implements RouterInterface
      *
      * @return Route[]
      */
+    #[\ReturnTypeWillChange]
     public function getRoutes()
     {
         return $this->routes;
@@ -265,6 +275,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function getNamedRoute($name)
     {
         foreach ($this->routes as $route) {
@@ -282,6 +293,7 @@ class Router implements RouterInterface
      *
      * @throws RuntimeException   If named route does not exist
      */
+    #[\ReturnTypeWillChange]
     public function removeNamedRoute($name)
     {
         $route = $this->getNamedRoute($name);
@@ -295,6 +307,7 @@ class Router implements RouterInterface
      *
      * @return string A group pattern to prefix routes with
      */
+    #[\ReturnTypeWillChange]
     protected function processGroups()
     {
         $pattern = "";
@@ -307,6 +320,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function pushGroup($pattern, $callable)
     {
         $group = new RouteGroup($pattern, $callable);
@@ -317,6 +331,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function popGroup()
     {
         $group = array_pop($this->routeGroups);
@@ -326,6 +341,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function lookupRoute($identifier)
     {
         if (!isset($this->routes[$identifier])) {
@@ -337,6 +353,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function relativePathFor($name, array $data = [], array $queryParams = [])
     {
         $route = $this->getNamedRoute($name);
@@ -396,6 +413,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function pathFor($name, array $data = [], array $queryParams = [])
     {
         return $this->urlFor($name, $data, $queryParams);
@@ -413,6 +431,7 @@ class Router implements RouterInterface
      * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
+    #[\ReturnTypeWillChange]
     public function urlFor($name, array $data = [], array $queryParams = [])
     {
         $url = $this->relativePathFor($name, $data, $queryParams);
@@ -437,6 +456,7 @@ class Router implements RouterInterface
      * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
+    #[\ReturnTypeWillChange]
     public function fullUrlFor(UriInterface $uri, $routeName, array $data = [], array $queryParams = [])
     {
         $path = $this->urlFor($routeName, $data, $queryParams);

@@ -34,5 +34,6 @@ interface HeadersInterface extends CollectionInterface
      *
      * @return string Normalized header name
      */
+    #[\ReturnTypeWillChange]
     public function normalizeKey($key);
 }

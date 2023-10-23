@@ -87,6 +87,7 @@ class Route extends Routable implements RouteInterface
         $this->identifier = 'route' . $identifier;
     }
 
+    #[\ReturnTypeWillChange]
     public function finalize()
     {
         if ($this->finalized) {
@@ -112,6 +113,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return callable
      */
+    #[\ReturnTypeWillChange]
     public function getCallable()
     {
         return $this->callable;
@@ -122,6 +124,7 @@ class Route extends Routable implements RouteInterface
      *
      * @param string|Closure $callable
      */
+    #[\ReturnTypeWillChange]
     public function setCallable($callable)
     {
         $this->callable = $callable;
@@ -132,6 +135,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function getMethods()
     {
         return $this->methods;
@@ -142,6 +146,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return RouteGroup[]
      */
+    #[\ReturnTypeWillChange]
     public function getGroups()
     {
         return $this->groups;
@@ -150,6 +155,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function getName()
     {
         return $this->name;
@@ -160,6 +166,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getIdentifier()
     {
         return $this->identifier;
@@ -170,6 +177,7 @@ class Route extends Routable implements RouteInterface
      *
      * @return boolean|string
      */
+    #[\ReturnTypeWillChange]
     public function getOutputBuffering()
     {
         return $this->outputBuffering;
@@ -178,6 +186,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function setOutputBuffering($mode)
     {
         if (!in_array($mode, [false, 'prepend', 'append'], true)) {
@@ -190,6 +199,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function setName($name)
     {
         if (!is_string($name)) {
@@ -202,6 +212,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function setArgument($name, $value, $includeInSavedArguments = true)
     {
         if ($includeInSavedArguments) {
@@ -214,6 +225,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function setArguments(array $arguments, $includeInSavedArguments = true)
     {
         if ($includeInSavedArguments) {
@@ -226,6 +238,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function getArguments()
     {
         return $this->arguments;
@@ -245,6 +258,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function prepare(ServerRequestInterface $request, array $arguments)
     {
         // Remove temp arguments
@@ -259,6 +273,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function run(ServerRequestInterface $request, ResponseInterface $response)
     {
         // Finalise route now that we are about to run it
@@ -271,6 +286,7 @@ class Route extends Routable implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
         $this->callable = $this->resolveCallable($this->callable);

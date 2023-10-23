@@ -158,6 +158,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function getStatusCode()
     {
         return $this->status;
@@ -186,6 +187,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException For invalid status code arguments.
      */
+    #[\ReturnTypeWillChange]
     public function withStatus($code, $reasonPhrase = '')
     {
         $code = $this->filterStatus($code);
@@ -218,6 +220,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException If an invalid HTTP status code is provided.
      */
+    #[\ReturnTypeWillChange]
     protected function filterStatus($status)
     {
         if (!is_integer($status) ||
@@ -244,6 +247,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return string Reason phrase; must return an empty string if none present.
      */
+    #[\ReturnTypeWillChange]
     public function getReasonPhrase()
     {
         if ($this->reasonPhrase) {
@@ -268,6 +272,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException For invalid header names or values.
      */
+    #[\ReturnTypeWillChange]
     public function withHeader($name, $value)
     {
         $clone = clone $this;
@@ -295,6 +300,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function write($data)
     {
         $this->getBody()->write($data);
@@ -315,6 +321,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withRedirect($url, $status = null)
     {
         $responseWithRedirect = $this->withHeader('Location', (string)$url);
@@ -346,6 +353,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws RuntimeException
      */
+    #[\ReturnTypeWillChange]
     public function withJson($data, $status = null, $encodingOptions = 0)
     {
         $response = $this->withBody(new Body(fopen('php://temp', 'r+')));
@@ -370,6 +378,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isEmpty()
     {
         return in_array(
@@ -385,6 +394,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isInformational()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_CONTINUE && $this->getStatusCode() < StatusCode::HTTP_OK;
@@ -397,6 +407,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isOk()
     {
         return $this->getStatusCode() === StatusCode::HTTP_OK;
@@ -409,6 +420,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isSuccessful()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_OK &&
@@ -422,6 +434,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isRedirect()
     {
         return in_array(
@@ -443,6 +456,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isRedirection()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_MULTIPLE_CHOICES &&
@@ -456,6 +470,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isForbidden()
     {
         return $this->getStatusCode() === StatusCode::HTTP_FORBIDDEN;
@@ -468,6 +483,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isNotFound()
     {
         return $this->getStatusCode() === StatusCode::HTTP_NOT_FOUND;
@@ -480,6 +496,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isBadRequest()
     {
         return $this->getStatusCode() === StatusCode::HTTP_BAD_REQUEST;
@@ -492,6 +509,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isClientError()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_BAD_REQUEST &&
@@ -505,6 +523,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function isServerError()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_INTERNAL_SERVER_ERROR && $this->getStatusCode() < 600;

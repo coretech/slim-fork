@@ -20,5 +20,6 @@ interface CallableResolverInterface
      *
      * @throws RuntimeException
      */
+    #[\ReturnTypeWillChange]
     public function resolve($toResolve);
 }

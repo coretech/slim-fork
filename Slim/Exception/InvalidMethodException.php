@@ -30,6 +30,7 @@ class InvalidMethodException extends InvalidArgumentException
     /**
      * @return ServerRequestInterface
      */
+    #[\ReturnTypeWillChange]
     public function getRequest()
     {
         return $this->request;

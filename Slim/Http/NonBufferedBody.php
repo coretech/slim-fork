@@ -41,6 +41,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function getSize()
     {
         return null;
@@ -49,6 +50,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function tell()
     {
         return 0;
@@ -57,6 +59,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function eof()
     {
         return true;
@@ -65,6 +68,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function isSeekable()
     {
         return false;
@@ -73,6 +77,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function seek($offset, $whence = SEEK_SET)
     {
     }
@@ -87,6 +92,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function isWritable()
     {
         return true;
@@ -95,6 +101,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function write($string)
     {
         $buffered = '';
@@ -112,6 +119,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function isReadable()
     {
         return false;
@@ -120,6 +128,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function read($length)
     {
         return '';
@@ -128,6 +137,7 @@ class NonBufferedBody implements StreamInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function getContents()
     {
         return '';

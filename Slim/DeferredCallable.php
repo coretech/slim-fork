@@ -37,6 +37,7 @@ class DeferredCallable
     /**
      * @return callable|string
      */
+    #[\ReturnTypeWillChange]
     public function getCallable()
     {
         return $this->callable;
@@ -45,6 +46,7 @@ class DeferredCallable
     /**
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function __invoke()
     {
         $callable = $this->resolveCallable($this->callable);

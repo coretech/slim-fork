@@ -27,6 +27,7 @@ class RequestResponse implements InvocationStrategyInterface
      *
      * @return ResponseInterface
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(
         callable $callable,
         ServerRequestInterface $request,

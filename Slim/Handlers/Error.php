@@ -25,6 +25,7 @@ class Error extends AbstractError
      *
      * @throws UnexpectedValueException
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, Exception $exception)
     {
         $contentType = $this->determineContentType($request);
@@ -64,6 +65,7 @@ class Error extends AbstractError
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderHtmlErrorMessage(Exception $exception)
     {
         $title = 'Slim Application Error';
@@ -103,6 +105,7 @@ class Error extends AbstractError
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderHtmlException(Exception $exception)
     {
         return $this->renderHtmlExceptionOrError($exception);
@@ -117,6 +120,7 @@ class Error extends AbstractError
      *
      * @throws RuntimeException
      */
+    #[\ReturnTypeWillChange]
     protected function renderHtmlExceptionOrError($exception)
     {
         if (!$exception instanceof Exception && !$exception instanceof \Error) {
@@ -156,6 +160,7 @@ class Error extends AbstractError
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderJsonErrorMessage(Exception $exception)
     {
         $error = [
@@ -187,6 +192,7 @@ class Error extends AbstractError
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderXmlErrorMessage(Exception $exception)
     {
         $xml = "<error>\n  <message>Slim Application Error</message>\n";
@@ -214,6 +220,7 @@ class Error extends AbstractError
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     private function createCdataSection($content)
     {
         return sprintf('<![CDATA[%s]]>', str_replace(']]>', ']]]]><![CDATA[>', $content));

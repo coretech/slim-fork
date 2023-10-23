@@ -20,6 +20,7 @@ class Environment extends Collection implements EnvironmentInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public static function mock(array $settings = [])
     {
         //Validates if default protocol is HTTPS to set default port 443

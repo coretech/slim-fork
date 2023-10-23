@@ -56,6 +56,7 @@ abstract class Routable
      *
      * @return callable[]
      */
+    #[\ReturnTypeWillChange]
     public function getMiddleware()
     {
         return $this->middleware;
@@ -66,6 +67,7 @@ abstract class Routable
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getPattern()
     {
         return $this->pattern;
@@ -78,6 +80,7 @@ abstract class Routable
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
@@ -91,6 +94,7 @@ abstract class Routable
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function add($callable)
     {
         $this->middleware[] = new DeferredCallable($callable, $this->container);
@@ -102,6 +106,7 @@ abstract class Routable
      *
      * @param string $newPattern
      */
+    #[\ReturnTypeWillChange]
     public function setPattern($newPattern)
     {
         $this->pattern = $newPattern;

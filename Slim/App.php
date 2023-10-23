@@ -71,6 +71,7 @@ class App
      *
      * @return ContainerInterface
      */
+    #[\ReturnTypeWillChange]
     public function getContainer()
     {
         return $this->container;
@@ -85,6 +86,7 @@ class App
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function add($callable)
     {
         return $this->addMiddleware(new DeferredCallable($callable, $this->container));
@@ -101,6 +103,7 @@ class App
      *
      * @throws BadMethodCallException
      */
+    #[\ReturnTypeWillChange]
     public function __call($method, $args)
     {
         if ($this->container->has($method)) {
@@ -121,6 +124,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function get($pattern, $callable)
     {
         return $this->map(['GET'], $pattern, $callable);
@@ -134,6 +138,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function post($pattern, $callable)
     {
         return $this->map(['POST'], $pattern, $callable);
@@ -147,6 +152,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function put($pattern, $callable)
     {
         return $this->map(['PUT'], $pattern, $callable);
@@ -160,6 +166,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function patch($pattern, $callable)
     {
         return $this->map(['PATCH'], $pattern, $callable);
@@ -173,6 +180,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function delete($pattern, $callable)
     {
         return $this->map(['DELETE'], $pattern, $callable);
@@ -186,6 +194,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function options($pattern, $callable)
     {
         return $this->map(['OPTIONS'], $pattern, $callable);
@@ -199,6 +208,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function any($pattern, $callable)
     {
         return $this->map(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], $pattern, $callable);
@@ -213,6 +223,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function map(array $methods, $pattern, $callable)
     {
         if ($callable instanceof Closure) {
@@ -240,6 +251,7 @@ class App
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function redirect($from, $to, $status = 302)
     {
         $handler = function ($request, ResponseInterface $response) use ($to, $status) {
@@ -261,6 +273,7 @@ class App
      *
      * @return RouteGroupInterface
      */
+    #[\ReturnTypeWillChange]
     public function group($pattern, $callable)
     {
         /** @var RouterInterface $router */
@@ -288,6 +301,7 @@ class App
      * @throws Exception
      * @throws Throwable
      */
+    #[\ReturnTypeWillChange]
     public function run($silent = false)
     {
         $response = $this->container->get('response');
@@ -338,6 +352,7 @@ class App
      *
      * @throws ContainerException
      */
+    #[\ReturnTypeWillChange]
     protected function processInvalidMethod(ServerRequestInterface $request, ResponseInterface $response)
     {
         $router = $this->container->get('router');
@@ -373,6 +388,7 @@ class App
      * @throws Exception
      * @throws Throwable
      */
+    #[\ReturnTypeWillChange]
     public function process(ServerRequestInterface $request, ResponseInterface $response)
     {
         // Ensure basePath is set
@@ -404,6 +420,7 @@ class App
      *
      * @param ResponseInterface $response
      */
+    #[\ReturnTypeWillChange]
     public function respond(ResponseInterface $response)
     {
         // Send response
@@ -484,6 +501,7 @@ class App
      * @throws MethodNotAllowedException
      * @throws NotFoundException
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
         // Get the route info
@@ -540,6 +558,7 @@ class App
      * @throws MethodNotAllowedException
      * @throws NotFoundException
      */
+    #[\ReturnTypeWillChange]
     public function subRequest(
         $method,
         $path,
@@ -573,6 +592,7 @@ class App
      *
      * @return ServerRequestInterface
      */
+    #[\ReturnTypeWillChange]
     protected function dispatchRouterAndPrepareRoute(ServerRequestInterface $request, RouterInterface $router)
     {
         $routeInfo = $router->dispatch($request);
@@ -604,6 +624,7 @@ class App
      *
      * @throws RuntimeException
      */
+    #[\ReturnTypeWillChange]
     protected function finalize(ResponseInterface $response)
     {
         // stop PHP sending a Content-Type automatically
@@ -645,6 +666,7 @@ class App
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     protected function isEmptyResponse(ResponseInterface $response)
     {
         if (method_exists($response, 'isEmpty')) {
@@ -661,6 +683,7 @@ class App
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     protected function isHeadRequest(RequestInterface $request)
     {
         $method = $request->getMethod();
@@ -679,6 +702,7 @@ class App
      *
      * @throws Exception If a handler is needed and not found
      */
+    #[\ReturnTypeWillChange]
     protected function handleException(Exception $e, ServerRequestInterface $request, ResponseInterface $response)
     {
         if ($e instanceof MethodNotAllowedException) {
@@ -718,6 +742,7 @@ class App
      *
      * @throws Throwable
      */
+    #[\ReturnTypeWillChange]
     protected function handlePhpError(Throwable $e, ServerRequestInterface $request, ResponseInterface $response)
     {
         $handler = 'phpErrorHandler';

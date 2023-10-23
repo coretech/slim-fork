@@ -64,6 +64,7 @@ abstract class Message implements MessageInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getProtocolVersion()
     {
         return $this->protocolVersion;
@@ -85,6 +86,7 @@ abstract class Message implements MessageInterface
      *
      * @throws InvalidArgumentException if the http version is an invalid number
      */
+    #[\ReturnTypeWillChange]
     public function withProtocolVersion($version)
     {
         if (!isset(self::$validProtocolVersions[$version])) {
@@ -125,6 +127,7 @@ abstract class Message implements MessageInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getHeaders()
     {
         return $this->headers->all();
@@ -140,6 +143,7 @@ abstract class Message implements MessageInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function hasHeader($name)
     {
         return $this->headers->has($name);
@@ -158,6 +162,7 @@ abstract class Message implements MessageInterface
      *
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function getHeader($name)
     {
         return $this->headers->get($name, []);
@@ -181,6 +186,7 @@ abstract class Message implements MessageInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getHeaderLine($name)
     {
         return implode(',', $this->headers->get($name, []));
@@ -201,6 +207,7 @@ abstract class Message implements MessageInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withHeader($name, $value)
     {
         $clone = clone $this;
@@ -225,6 +232,7 @@ abstract class Message implements MessageInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withAddedHeader($name, $value)
     {
         $clone = clone $this;
@@ -250,6 +258,7 @@ abstract class Message implements MessageInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withoutHeader($name)
     {
         $clone = clone $this;
@@ -267,6 +276,7 @@ abstract class Message implements MessageInterface
      *
      * @return StreamInterface Returns the body as a stream.
      */
+    #[\ReturnTypeWillChange]
     public function getBody()
     {
         return $this->body;
@@ -285,6 +295,7 @@ abstract class Message implements MessageInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public function withBody(StreamInterface $body)
     {
         $clone = clone $this;

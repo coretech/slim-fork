@@ -19,6 +19,7 @@ interface CookiesInterface
      *
      * @return mixed Cookie value if present, else default
      */
+    #[\ReturnTypeWillChange]
     public function get($name, $default = null);
 
     /**
@@ -27,6 +28,7 @@ interface CookiesInterface
      * @param string       $name  Cookie name
      * @param string|array $value Cookie value, or cookie properties
      */
+    #[\ReturnTypeWillChange]
     public function set($name, $value);
 
     /**
@@ -34,6 +36,7 @@ interface CookiesInterface
      *
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function toHeaders();
 
     /**
@@ -45,5 +48,6 @@ interface CookiesInterface
      *
      * @throws InvalidArgumentException if the cookie data cannot be parsed
      */
+    #[\ReturnTypeWillChange]
     public static function parseHeader($header);
 }

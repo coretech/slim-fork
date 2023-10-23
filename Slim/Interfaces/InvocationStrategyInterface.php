@@ -20,6 +20,7 @@ interface InvocationStrategyInterface
      *
      * @return ResponseInterface|string
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(
         callable $callable,
         ServerRequestInterface $request,

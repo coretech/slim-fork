@@ -28,6 +28,7 @@ interface RouterInterface
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function map($methods, $pattern, $handler);
 
     /**
@@ -39,6 +40,7 @@ interface RouterInterface
      *
      * @link   https://github.com/nikic/FastRoute/blob/master/src/Dispatcher.php
      */
+    #[\ReturnTypeWillChange]
     public function dispatch(ServerRequestInterface $request);
 
     /**
@@ -49,6 +51,7 @@ interface RouterInterface
      *
      * @return RouteGroupInterface
      */
+    #[\ReturnTypeWillChange]
     public function pushGroup($pattern, $callable);
 
     /**
@@ -56,6 +59,7 @@ interface RouterInterface
      *
      * @return bool True if successful, else False
      */
+    #[\ReturnTypeWillChange]
     public function popGroup();
 
     /**
@@ -67,6 +71,7 @@ interface RouterInterface
      *
      * @throws RuntimeException   If named route does not exist
      */
+    #[\ReturnTypeWillChange]
     public function getNamedRoute($name);
 
     /**
@@ -74,6 +79,7 @@ interface RouterInterface
      *
      * @return RouteInterface
      */
+    #[\ReturnTypeWillChange]
     public function lookupRoute($identifier);
 
     /**
@@ -88,6 +94,7 @@ interface RouterInterface
      * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
+    #[\ReturnTypeWillChange]
     public function relativePathFor($name, array $data = [], array $queryParams = []);
 
     /**
@@ -102,5 +109,6 @@ interface RouterInterface
      * @throws RuntimeException         If named route does not exist
      * @throws InvalidArgumentException If required data not provided
      */
+    #[\ReturnTypeWillChange]
     public function pathFor($name, array $data = [], array $queryParams = []);
 }

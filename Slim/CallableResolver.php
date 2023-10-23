@@ -45,6 +45,7 @@ final class CallableResolver implements CallableResolverInterface
      * @throws RuntimeException If the callable does not exist
      * @throws RuntimeException If the callable is not resolvable
      */
+    #[\ReturnTypeWillChange]
     public function resolve($toResolve)
     {
         if (is_callable($toResolve)) {
@@ -69,6 +70,7 @@ final class CallableResolver implements CallableResolverInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     protected function parseCallable($toResolve)
     {
         if (preg_match(self::CALLABLE_PATTERN, $toResolve, $matches)) {
@@ -89,6 +91,7 @@ final class CallableResolver implements CallableResolverInterface
      *
      * @throws RuntimeException if the callable does not exist
      */
+    #[\ReturnTypeWillChange]
     protected function resolveCallable($class, $method)
     {
         if ($this->container->has($class)) {
@@ -107,6 +110,7 @@ final class CallableResolver implements CallableResolverInterface
      *
      * @throws RuntimeException if the callable is not resolvable
      */
+    #[\ReturnTypeWillChange]
     protected function assertCallable($callable)
     {
         if (!is_callable($callable)) {

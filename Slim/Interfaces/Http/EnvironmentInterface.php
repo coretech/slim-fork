@@ -16,5 +16,6 @@ interface EnvironmentInterface
      *
      * @return static
      */
+    #[\ReturnTypeWillChange]
     public static function mock(array $settings = []);
 }

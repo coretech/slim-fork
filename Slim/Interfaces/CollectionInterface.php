@@ -29,6 +29,7 @@ interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate
      *
      * @return mixed The key's value, or the default value
      */
+    #[\ReturnTypeWillChange]
     public function get($key, $default = null);
 
     /**
@@ -36,6 +37,7 @@ interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate
      *
      * @param array $items Key-value array of data to append to this collection
      */
+    #[\ReturnTypeWillChange]
     public function replace(array $items);
 
     /**
@@ -43,6 +45,7 @@ interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate
      *
      * @return array The collection's source data
      */
+    #[\ReturnTypeWillChange]
     public function all();
 
     /**
@@ -52,6 +55,7 @@ interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function has($key);
 
     /**
@@ -59,6 +63,7 @@ interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate
      *
      * @param string $key The data key
      */
+    #[\ReturnTypeWillChange]
     public function remove($key);
 
     /**

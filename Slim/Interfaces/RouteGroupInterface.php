@@ -16,6 +16,7 @@ interface RouteGroupInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getPattern();
 
     /**
@@ -25,6 +26,7 @@ interface RouteGroupInterface
      *
      * @return RouteGroupInterface
      */
+    #[\ReturnTypeWillChange]
     public function add($callable);
 
     /**

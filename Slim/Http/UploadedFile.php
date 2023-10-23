@@ -87,6 +87,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return array|null
      */
+    #[\ReturnTypeWillChange]
     public static function createFromEnvironment(Environment $env)
     {
         if (is_array($env['slim.files']) && $env->has('slim.files')) {
@@ -107,6 +108,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     private static function parseUploadedFiles(array $uploadedFiles)
     {
         $parsed = [];
@@ -154,6 +156,7 @@ class UploadedFile implements UploadedFileInterface
      * @param int         $error The UPLOAD_ERR_XXX code representing the status of the upload.
      * @param bool        $sapi Indicates if the upload is in a SAPI environment.
      */
+    #[\ReturnTypeWillChange]
     public function __construct($file, $name = null, $type = null, $size = null, $error = UPLOAD_ERR_OK, $sapi = false)
     {
         $this->file = $file;
@@ -180,6 +183,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @throws RuntimeException in cases when no stream is available or can be created.
      */
+    #[\ReturnTypeWillChange]
     public function getStream()
     {
         if ($this->moved) {
@@ -225,6 +229,7 @@ class UploadedFile implements UploadedFileInterface
      * @throws InvalidArgumentException If the $path specified is invalid.
      * @throws RuntimeException On any error during the move operation or on the second subsequent call to the method.
      */
+    #[\ReturnTypeWillChange]
     public function moveTo($targetPath)
     {
         if ($this->moved) {
@@ -275,6 +280,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function getError()
     {
         return $this->error;
@@ -292,6 +298,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function getClientFilename()
     {
         return $this->name;
@@ -309,6 +316,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function getClientMediaType()
     {
         return $this->type;
@@ -323,6 +331,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return int|null
      */
+    #[\ReturnTypeWillChange]
     public function getSize()
     {
         return $this->size;

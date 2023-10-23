@@ -23,6 +23,7 @@ class NotAllowed extends AbstractHandler
      *
      * @throws UnexpectedValueException
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $methods)
     {
         if ($request->getMethod() === 'OPTIONS') {
@@ -68,6 +69,7 @@ class NotAllowed extends AbstractHandler
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderPlainOptionsMessage($methods)
     {
         $allow = implode(', ', $methods);
@@ -82,6 +84,7 @@ class NotAllowed extends AbstractHandler
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderJsonNotAllowedMessage($methods)
     {
         $allow = implode(', ', $methods);
@@ -96,6 +99,7 @@ class NotAllowed extends AbstractHandler
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderXmlNotAllowedMessage($methods)
     {
         $allow = implode(', ', $methods);
@@ -110,6 +114,7 @@ class NotAllowed extends AbstractHandler
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     protected function renderHtmlNotAllowedMessage($methods)
     {
         $allow = implode(', ', $methods);

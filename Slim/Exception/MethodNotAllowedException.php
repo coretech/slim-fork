@@ -31,6 +31,7 @@ class MethodNotAllowedException extends SlimException
     /**
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function getAllowedMethods()
     {
         return $this->allowedMethods;

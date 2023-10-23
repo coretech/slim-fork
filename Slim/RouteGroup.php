@@ -15,6 +15,7 @@ class RouteGroup extends Routable implements RouteGroupInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function __invoke(App $app = null)
     {
         $callable = $this->resolveCallable($this->callable);

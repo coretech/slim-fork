@@ -44,6 +44,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return self
      */
+    #[\ReturnTypeWillChange]
     public static function createFromEnvironment(Environment $environment)
     {
         $data = [];
@@ -67,7 +68,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return Environment
      */
-
+    #[\ReturnTypeWillChange]
     public static function determineAuthorization(Environment $environment)
     {
         $authorization = $environment->get('HTTP_AUTHORIZATION');
@@ -94,6 +95,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function all()
     {
         $all = parent::all();
@@ -114,6 +116,7 @@ class Headers extends Collection implements HeadersInterface
      * @param string       $key   The case-insensitive header name
      * @param array|string $value The header value
      */
+    #[\ReturnTypeWillChange]
     public function set($key, $value)
     {
         if (!is_array($value)) {
@@ -133,6 +136,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return string[]
      */
+    #[\ReturnTypeWillChange]
     public function get($key, $default = null)
     {
         if ($this->has($key)) {
@@ -150,6 +154,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function getOriginalKey($key, $default = null)
     {
         if ($this->has($key)) {
@@ -162,6 +167,7 @@ class Headers extends Collection implements HeadersInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function add($key, $value)
     {
         $oldValues = $this->get($key, []);
@@ -176,6 +182,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function has($key)
     {
         return parent::has($this->normalizeKey($key));
@@ -186,6 +193,7 @@ class Headers extends Collection implements HeadersInterface
      *
      * @param  string $key The case-insensitive header name
      */
+    #[\ReturnTypeWillChange]
     public function remove($key)
     {
         parent::remove($this->normalizeKey($key));
@@ -194,6 +202,7 @@ class Headers extends Collection implements HeadersInterface
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function normalizeKey($key)
     {
         $key = strtr(strtolower($key), '_', '-');
