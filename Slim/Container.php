@@ -70,7 +70,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return void
      */
-    private function registerDefaultServices($userSettings): void
+    private function registerDefaultServices($userSettings)
     {
         $defaultSettings = $this->defaultSettings;
 
@@ -100,7 +100,7 @@ class Container extends PimpleContainer implements ContainerInterface
      * @throws ContainerValueNotFoundException  No entry was found for this identifier.
      * @throws ContainerExceptionInterface      Error while retrieving the entry.
      */
-    public function get($id): mixed
+    public function get($id)
     {
         if (!$this->offsetExists($id)) {
             throw new ContainerValueNotFoundException(sprintf('Identifier "%s" is not defined.', $id));
@@ -128,7 +128,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return bool
      */
-    private function exceptionThrownByContainer(InvalidArgumentException $exception): bool
+    private function exceptionThrownByContainer(InvalidArgumentException $exception)
     {
         $trace = $exception->getTrace()[0];
 
@@ -143,7 +143,7 @@ class Container extends PimpleContainer implements ContainerInterface
      *
      * @return boolean
      */
-    public function has($id): bool
+    public function has($id)
     {
         return $this->offsetExists($id);
     }

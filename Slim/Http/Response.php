@@ -158,7 +158,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return int
      */
-    public function getStatusCode(): int
+    public function getStatusCode()
     {
         return $this->status;
     }
@@ -186,7 +186,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException For invalid status code arguments.
      */
-    public function withStatus($code, $reasonPhrase = ''): Response|static
+    public function withStatus($code, $reasonPhrase = '')
     {
         $code = $this->filterStatus($code);
 
@@ -218,7 +218,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException If an invalid HTTP status code is provided.
      */
-    protected function filterStatus($status): int
+    protected function filterStatus($status)
     {
         if (!is_integer($status) ||
             $status<StatusCode::HTTP_CONTINUE ||
@@ -244,7 +244,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return string Reason phrase; must return an empty string if none present.
      */
-    public function getReasonPhrase(): string
+    public function getReasonPhrase()
     {
         if ($this->reasonPhrase) {
             return $this->reasonPhrase;
@@ -268,7 +268,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException For invalid header names or values.
      */
-    public function withHeader($name, $value): Response|static
+    public function withHeader($name, $value)
     {
         $clone = clone $this;
         $clone->headers->set($name, $value);
@@ -295,7 +295,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return static
      */
-    public function write($data): static
+    public function write($data)
     {
         $this->getBody()->write($data);
 
@@ -315,7 +315,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return static
      */
-    public function withRedirect($url, $status = null): Response|static
+    public function withRedirect($url, $status = null)
     {
         $responseWithRedirect = $this->withHeader('Location', (string)$url);
 
@@ -346,7 +346,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws RuntimeException
      */
-    public function withJson($data, $status = null, $encodingOptions = 0): static
+    public function withJson($data, $status = null, $encodingOptions = 0)
     {
         $response = $this->withBody(new Body(fopen('php://temp', 'r+')));
         $response->body->write($json = json_encode($data, $encodingOptions));
@@ -370,7 +370,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isEmpty(): bool
+    public function isEmpty()
     {
         return in_array(
             $this->getStatusCode(),
@@ -385,7 +385,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isInformational(): bool
+    public function isInformational()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_CONTINUE && $this->getStatusCode() < StatusCode::HTTP_OK;
     }
@@ -397,7 +397,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isOk(): bool
+    public function isOk()
     {
         return $this->getStatusCode() === StatusCode::HTTP_OK;
     }
@@ -409,7 +409,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isSuccessful(): bool
+    public function isSuccessful()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_OK &&
             $this->getStatusCode() < StatusCode::HTTP_MULTIPLE_CHOICES;
@@ -422,7 +422,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isRedirect(): bool
+    public function isRedirect()
     {
         return in_array(
             $this->getStatusCode(),
@@ -443,7 +443,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isRedirection(): bool
+    public function isRedirection()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_MULTIPLE_CHOICES &&
             $this->getStatusCode() < StatusCode::HTTP_BAD_REQUEST;
@@ -456,7 +456,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isForbidden(): bool
+    public function isForbidden()
     {
         return $this->getStatusCode() === StatusCode::HTTP_FORBIDDEN;
     }
@@ -468,7 +468,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isNotFound(): bool
+    public function isNotFound()
     {
         return $this->getStatusCode() === StatusCode::HTTP_NOT_FOUND;
     }
@@ -480,7 +480,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isBadRequest(): bool
+    public function isBadRequest()
     {
         return $this->getStatusCode() === StatusCode::HTTP_BAD_REQUEST;
     }
@@ -492,7 +492,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isClientError(): bool
+    public function isClientError()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_BAD_REQUEST &&
             $this->getStatusCode() < StatusCode::HTTP_INTERNAL_SERVER_ERROR;
@@ -505,7 +505,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return bool
      */
-    public function isServerError(): bool
+    public function isServerError()
     {
         return $this->getStatusCode() >= StatusCode::HTTP_INTERNAL_SERVER_ERROR && $this->getStatusCode() < 600;
     }
