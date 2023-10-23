@@ -1,11 +1,16 @@
 {
     "name": "coretech/slim3-php8",
     "type": "library",
-    "description": "Slim3 for PHP8",
+    "description": "Slim3 for PHP8 with non-breaking changes for compatibility with PHP 8.2",
     "keywords": ["framework","micro","api","router"],
     "homepage": "https://slimframework.com",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Sergei Filatov",
+            "email": "sergei.filatov@idt.net",
+            "homepage": "https://nrsplus.com"
+        },
         {
             "name": "Josh Lockhart",
             "email": "hello@joshlockhart.com",
