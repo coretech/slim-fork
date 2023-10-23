@@ -1,5 +1,5 @@
 {
-    "name": "coretech/slim-fork",
+    "name": "coretech/slim3-php8",
     "type": "library",
     "description": "Slim3 for PHP8",
     "keywords": ["framework","micro","api","router"],
