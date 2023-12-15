@@ -11,6 +11,7 @@ class MigratingTestCase extends TestCase
         if (is_object($object)) {
             $reflectedClass = new ReflectionClass($object);
             $reflection = $reflectedClass->getProperty($property);
+            $reflection->setAccessible(true);
             $attributeValue = $reflection->getValue($object);
             $this->assertEquals($value, $attributeValue);
         } elseif (is_array($object)) {
@@ -25,6 +26,7 @@ class MigratingTestCase extends TestCase
         if (is_object($object)) {
             $reflectedClass = new ReflectionClass($object);
             $reflection = $reflectedClass->getProperty($property);
+            $reflection->setAccessible(true);
             $attributeValue = $reflection->getValue($object);
             $this->assertSame($expected, $attributeValue);
         } elseif (is_array($object)) {
@@ -39,6 +41,7 @@ class MigratingTestCase extends TestCase
         if (is_object($object)) {
             $reflectedClass = new ReflectionClass($object);
             $reflection = $reflectedClass->getProperty($property);
+            $reflection->setAccessible(true);
             $attributeValue = $reflection->getValue($object);
             $this->assertNotSame($expected, $attributeValue);
         } elseif (is_array($object)) {
@@ -52,6 +55,7 @@ class MigratingTestCase extends TestCase
     {
         $reflectedClass = new ReflectionClass($object);
         $reflection = $reflectedClass->getProperty($property);
+        $reflection->setAccessible(true);
         $attributeValue = $reflection->getValue($object);
         $this->assertIsArray($attributeValue);
         $this->assertContains($value, $attributeValue);
@@ -85,6 +89,7 @@ class MigratingTestCase extends TestCase
     {
         $reflectedClass = new ReflectionClass($object);
         $reflection = $reflectedClass->getProperty($property);
+        $reflection->setAccessible(true);
         $attributeValue = $reflection->getValue($object);
         $this->assertInstanceOf($expected, $attributeValue);
     }

@@ -6,17 +6,19 @@ jobs:
     tests:
         name: Tests PHP ${{ matrix.php }}
         runs-on: ubuntu-latest
-        continue-on-error: ${{ matrix.experimental }}
+
         strategy:
             fail-fast: false
             matrix:
-                php: [7.3, 7.4, 8.0]
+                php: [8.0, 8.1, 8.2, 8.3]
                 experimental: [false]
+                analysis: [false]
+                common: [true]
                 include:
-                    - php: 8.0
-                      analysis: true
-                    - php: 8.1
-                      experimental: true
+                    -   php: 8.2
+                        analysis: true
+                        experimental: true
+                        common: false
 
         steps:
             - name: Checkout
@@ -32,20 +34,18 @@ jobs:
               uses: ramsey/composer-install@v1
 
             - name: Coding standards
-              if: matrix.analysis
+              if: matrix.common
               run: vendor/bin/phpcs
+              continue-on-error: ${{ matrix.experimental }}
+
+            - name: Tests
+              if: matrix.common
+              run: vendor/bin/phpunit --coverage-text
+              continue-on-error: ${{ matrix.experimental }}
 
             - name: Static analysis
               if: matrix.analysis
-              run: vendor/bin/phpstan
-
-            - name: Tests
-              run: vendor/bin/phpunit --coverage-clover clover.xml
-
-            - name: Upload coverage results to Coveralls
-              if: matrix.analysis
-              env:
-                  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  composer require php-coveralls/php-coveralls -n -W
-                  vendor/bin/php-coveralls --coverage_clover=clover.xml -v
+                  composer require phpstan/phpstan --dev
+                  vendor/bin/phpstan
+              continue-on-error: ${{ matrix.experimental }}
